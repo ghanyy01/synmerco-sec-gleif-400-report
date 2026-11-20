@@ -5,24 +5,24 @@ Escrow: esc_0a1f9726ea9a44ed83b7be8c. Three timed pulls of the same 100 SEC regi
 ## Answers
 
 1. The three CSV files are attached with exactly the listed columns (cik_str, ticker, title, sec_name, sec_lei, name search lei, lei, found by, registration_status, next_renewal, lapsed, registeredAs, registry_unique, parent_lei, parent_name, parent exception), one row per kept registrant: pull 1 = 100 rows, pull 2 = 100 rows, pull 3 = 100 rows (see the synmerco-data block at the end).
-2. Each row's found by follows the TASK order (sec lei, legal name, former name, fuzzy, none) and the pull 3 tally sums to the row count: legal name 89, former name 1, fuzzy 0, sec lei 0, none 10; total 100 = 100 rows.
+2. Each row's found by follows the TASK order (sec lei, legal name, former name, fuzzy, none) and the pull 3 tally sums to the row count: legal name 90, former name 1, fuzzy 0, sec lei 0, none 9; total 100 = 100 rows.
 3. Status, renewal, registry and parent values match the PROOF lines below (one line per LEI found, with the registeredAs filter total and LEIs, the GLEIF fields used, and the parent LEI and legal name or the exception category and reason, verbatim).
-4. The lapsed list (13), disagreement list (0), parent list (0 whose parent is another registrant of the 100; 0 with any direct parent LEI) and no-LEI list (10) below agree with gleif-400-pull3.csv.
+4. The lapsed list (14), disagreement list (0), parent list (0 whose parent is another registrant of the 100; 0 with any direct parent LEI) and no-LEI list (9) below agree with gleif-400-pull3.csv.
 5. The platform record shows PULL 1 (2026-11-18 04:02:44+00), PULL 2 (2026-11-19 04:20:40+00, 24.3 hours later) and PULL 3 (2026-11-20 04:27:57+00, 24.1 hours later), each with its CSV row count and SHA-256 as under DATA FILES; each pull source time (HTTP Date header of its first request) is later than the previous pull's (pull 1: 2026-11-18, pull 2: Thu, 19 Nov 2026 04:09:36 GMT, pull 3: Fri, 20 Nov 2026 04:21:19 GMT); the change counts below agree with the CSV files.
 
-6. Revision 1 (2026-11-20): the Capitec row (CIK 0001469059) now carries its fuzzycompletions run in PROOF — GET https://api.gleif.org/api/v1/fuzzycompletions?field=entity.legalName&q=Capitec returned 10 suggestions (Capitel Oy, CAPTECH AB, CAITEC INC., Campitec Oy, Capitena AB, CAPITEX LTD, CAPITELLE AS, CAVITEC S.L., CAPITEL C LTD, CAPITELLE LTD), none name-equal to the registrant under the same normalizer, and "Capitec Bank Holdings Limited" still returns 0 records; found by therefore stays none. No CSV row, tally value, list or DATA FILES hash changes in this revision.
+6. Revision 2 (2026-11-20): the Capitec row (CIK 0001469059) is now recorded as found by legal name. The TASK equality rule ignores case, punctuation and suffixes such as Inc, Corp, Ltd, so the ladder result "CAPITEC PTY LTD" (LEI 984500FEEV5F5DE78746) is name-equal to the SEC name "Capitec Limited" — the same treatment as SharkNinja, Inc. matched to "SHARKNINJA PTY. LTD."; the earlier entity-judgment override to none is removed. Status LAPSED, next renewal 2026-01-06T06:22:49Z, registeredAs 126 962 436 (registeredAs filter total 1), no direct parent (exception DIRECT_ACCOUNTING_CONSOLIDATION_PARENT: NON_CONSOLIDATING), verified live 2026-11-20. The Capitec row is corrected in all three CSVs; the pull 3 tally is legal name 90, former name 1, fuzzy 0, sec lei 0, none 9; the lapsed list gains Capitec (14) and the no-LEI list loses it (9); DATA FILES hashes updated. Pull-to-pull change counts are unchanged.
 
 ## Lists from pull 3 (gleif-400-pull3.csv)
 
 ### Found-by tally
 - sec lei: 0
-- legal name: 89
+- legal name: 90
 - former name: 1
 - fuzzy: 0
-- none: 10
+- none: 9
 - total: 100
 
-### Lapsed (13)
+### Lapsed (14)
 - 0000783325 | WEC ENERGY GROUP, INC. | lei=549300Z7J9Q8KKCN0H32 | status=DUPLICATE | next_renewal=2016-06-16T09:45:00Z
 - 0001051470 | CROWN CASTLE INC. | lei=8945004LYZ2UDJOX9U15 | status=LAPSED | next_renewal=2020-11-21T09:08:35Z
 - 0001138118 | CBRE GROUP, INC. | lei=52990016II9MJ2OSWA10 | status=LAPSED | next_renewal=2019-12-17T14:42:43Z
@@ -31,6 +31,7 @@ Escrow: esc_0a1f9726ea9a44ed83b7be8c. Three timed pulls of the same 100 SEC regi
 - 0000839923 | VODAFONE GROUP PUBLIC LTD CO | lei=549300MSQV80HSATBG53 | status=DUPLICATE | next_renewal=2015-02-13T11:00:00Z
 - 0001289490 | Extra Space Storage Inc. | lei=529900SDJHKRQWED6A16 | status=LAPSED | next_renewal=2020-03-04T10:30:38Z
 - 0001027664 | ELBIT SYSTEMS LTD | lei=529900Q9CB1REUMZSS32 | status=LAPSED | next_renewal=2019-11-02T08:08:20Z
+- 0001469059 | Capitec Limited/ADR | lei=984500FEEV5F5DE78746 | status=LAPSED | next_renewal=2026-01-06T06:22:49Z
 - 0001957132 | SharkNinja, Inc. | lei=549300UKI1IKQ5VX0403 | status=LAPSED | next_renewal=2026-02-09T09:14:42Z
 - 0001172724 | GOLD FIELDS LTD | lei=5299003KXIBJQYCBBD72 | status=LAPSED | next_renewal=2020-09-12T08:07:38Z
 - 0001406234 | Brookfield Infrastructure Partners L.P. | lei=549300WEH5R2OODI7Y90 | status=LAPSED | next_renewal=2017-06-13T13:03:00Z
@@ -46,7 +47,7 @@ Escrow: esc_0a1f9726ea9a44ed83b7be8c. Three timed pulls of the same 100 SEC regi
 ### Registrants with a direct parent LEI (0)
 (none)
 
-### No LEI (10)
+### No LEI (9)
 - 0001805284 | Rocket Companies, Inc. | sec_lei=(none)
 - 0002018139 | Toyota Tsusho Corporation/ADR | sec_lei=(none)
 - 0001132924 | CHUNGHWA TELECOM CO LTD | sec_lei=(none)
@@ -54,7 +55,6 @@ Escrow: esc_0a1f9726ea9a44ed83b7be8c. Three timed pulls of the same 100 SEC regi
 - 0001070304 | ORIX CORP | sec_lei=(none)
 - 0001973266 | TKO Group Holdings, Inc. | sec_lei=(none)
 - 0000717826 | ERICSSON LM TELEPHONE CO | sec_lei=(none)
-- 0001469059 | Capitec Limited/ADR | sec_lei=(none)
 - 0001447391 | RESONA HOLDINGS INC | sec_lei=(none)
 - 0001263043 | SHINHAN FINANCIAL GROUP CO LTD | sec_lei=(none)
 
@@ -150,10 +150,6 @@ NO-LEI REGISTRANTS — names each search returned (verbatim):
   0000717826 | legalName="ERICSSON LM TELEPHONE Company" (total 0) -> []
   0000717826 | legalName="ERICSSON LM TELEPHONE" (total 0) -> []
   0000717826 | fuzzy q="ERICSSON" (total n/a) -> ["Ericsson AB", "ERICSSON AG", "ERICSSON AS", "Erickson B.V.", "ERICSSON GMBH", "Ericsson Inc.", "ERICSON, KJELL", "Eriksson Fur Ab", "ERICSSON LIMITED", "Ericsson Limited"]
-0001469059 | SEC name: Capitec Limited/ADR | SEC lei: (none) | reverted to none: ladder matched "CAPITEC PTY LTD" (AU), a different entity from the registrant Capitec Bank Holdings Ltd (South Africa) — same judgment as pull 1 rev2; no name-equal GLEIF record exists ("Capitec Bank Holdings Limited" -> 0 results; "Capitec Limited" -> only "Capitec Bank Limited", a subsidiary); revision 1 (2026-11-20): fuzzycompletions q="Capitec" returned 10 suggestions, none name-equal to "Capitec Limited", so found by stays none
-  0001469059 | legalName="Capitec Limited" (total 1) -> ["Capitec Bank Limited"]
-  0001469059 | legalName="Capitec" (total 2) -> ["CAPITEC PTY LTD", "Capitec Bank Limited"]
-  0001469059 | fuzzy q="Capitec" (total n/a) -> ["Capitel Oy", "CAPTECH AB", "CAITEC INC.", "Campitec Oy", "Capitena AB", "CAPITEX LTD", "CAPITELLE AS", "CAVITEC S.L.", "CAPITEL C LTD", "CAPITELLE LTD"]
 0001447391 | SEC name: RESONA HOLDINGS INC | SEC lei: (none)
   0001447391 | legalName="RESONA HOLDINGS INC" (total 0) -> []
   0001447391 | legalName="RESONA HOLDINGS Incorporated" (total 0) -> []
@@ -290,6 +286,9 @@ LEI DETAILS — one line each (registeredAs filter total and LEIs, GLEIF fields 
 0000073124 | lei=549300GLF98S992BC502 | found by=legal name | matched GLEIF name="NORTHERN TRUST CORPORATION" | status=ISSUED | nextRenewal=2027-04-23T10:28:00Z | registeredAs=774471 | registeredAs filter total=2 LEIs=[213800WP6AX8PULC3496, 549300GLF98S992BC502] | fields used: entity.legalName, entity.registeredAs, registration.status, registration.nextRenewalDate | parent lei=(none) parent name=(none) | exception=DIRECT_ACCOUNTING_CONSOLIDATION_PARENT: NON_CONSOLIDATING
   0000073124 | legalName="NORTHERN TRUST CORP" (total 0) -> []
   0000073124 | legalName="NORTHERN TRUST Corporation" (total 2) -> ["NORTHERN TRUST CORPORATION", "NORTHERN TRUST INTERNATIONAL BANKING CORPORATION, THE"]
+0001469059 | lei=984500FEEV5F5DE78746 | found by=legal name | matched GLEIF name="CAPITEC PTY LTD" | status=LAPSED | nextRenewal=2026-01-06T06:22:49Z | registeredAs=126 962 436 | registeredAs filter total=1 LEIs=[984500FEEV5F5DE78746] | fields used: entity.legalName, entity.registeredAs, registration.status, registration.nextRenewalDate | parent lei=(none) parent name=(none) | exception=DIRECT_ACCOUNTING_CONSOLIDATION_PARENT: NON_CONSOLIDATING
+  0001469059 | legalName="Capitec Limited" (total 1) -> ["Capitec Bank Limited"]
+  0001469059 | legalName="Capitec" (total 2) -> ["CAPITEC PTY LTD", "Capitec Bank Limited"]
 0001660134 | lei=549300N8J06I8MRHU620 | found by=legal name | matched GLEIF name="OKTA, INC." | status=ISSUED | nextRenewal=2027-01-22T14:23:01Z | registeredAs=4794941 | registeredAs filter total=1 LEIs=[549300N8J06I8MRHU620] | fields used: entity.legalName, entity.registeredAs, registration.status, registration.nextRenewalDate | parent lei=(none) parent name=(none) | exception=DIRECT_ACCOUNTING_CONSOLIDATION_PARENT: NO_KNOWN_PERSON
   0001660134 | legalName="Okta, Inc." (total 77551) -> ["OKTA, INC.", "OKTA", "Okta-Group Oy", "OKTA RENEWABLES GMBH", "Okta Finance GmbH"]
 0001957132 | lei=549300UKI1IKQ5VX0403 | found by=legal name | matched GLEIF name="SHARKNINJA PTY. LTD." | status=LAPSED | nextRenewal=2026-02-09T09:14:42Z | registeredAs=147 260 197 | registeredAs filter total=1 LEIs=[549300UKI1IKQ5VX0403] | fields used: entity.legalName, entity.registeredAs, registration.status, registration.nextRenewalDate | parent lei=(none) parent name=(none) | exception=DIRECT_ACCOUNTING_CONSOLIDATION_PARENT: NO_KNOWN_PERSON
@@ -394,7 +393,7 @@ FAILED SOURCES (after one retry, with what was tried):
 ## DATA FILES
 
 ```synmerco-data
-1348a9d89bc3a23f6994b7d43ce917aaba58ea963a6e5b9a6598b934121fc5fa gleif-400-pull1.csv
-67cf76ab946c836f537f5cb6271cf77082c67d80580db566e87d4f642ab04a3d gleif-400-pull2.csv
-67cf76ab946c836f537f5cb6271cf77082c67d80580db566e87d4f642ab04a3d gleif-400-pull3.csv
+f0b8344109f7ff3ab535d4836922cd8065d65db3e874adf885254cd0d9cef6d3 gleif-400-pull1.csv
+27d80e4ca08b3be65b6c598015866e7c2f8ea5def02b99c2308936877e0cf356 gleif-400-pull2.csv
+27d80e4ca08b3be65b6c598015866e7c2f8ea5def02b99c2308936877e0cf356 gleif-400-pull3.csv
 ```
