@@ -10,6 +10,8 @@ Escrow: esc_0a1f9726ea9a44ed83b7be8c. Three timed pulls of the same 100 SEC regi
 4. The lapsed list (13), disagreement list (0), parent list (0 whose parent is another registrant of the 100; 0 with any direct parent LEI) and no-LEI list (10) below agree with gleif-400-pull3.csv.
 5. The platform record shows PULL 1 (2026-11-18 04:02:44+00), PULL 2 (2026-11-19 04:20:40+00, 24.3 hours later) and PULL 3 (2026-11-20 04:27:57+00, 24.1 hours later), each with its CSV row count and SHA-256 as under DATA FILES; each pull source time (HTTP Date header of its first request) is later than the previous pull's (pull 1: 2026-11-18, pull 2: Thu, 19 Nov 2026 04:09:36 GMT, pull 3: Fri, 20 Nov 2026 04:21:19 GMT); the change counts below agree with the CSV files.
 
+6. Revision 1 (2026-11-20): the Capitec row (CIK 0001469059) now carries its fuzzycompletions run in PROOF — GET https://api.gleif.org/api/v1/fuzzycompletions?field=entity.legalName&q=Capitec returned 10 suggestions (Capitel Oy, CAPTECH AB, CAITEC INC., Campitec Oy, Capitena AB, CAPITEX LTD, CAPITELLE AS, CAVITEC S.L., CAPITEL C LTD, CAPITELLE LTD), none name-equal to the registrant under the same normalizer, and "Capitec Bank Holdings Limited" still returns 0 records; found by therefore stays none. No CSV row, tally value, list or DATA FILES hash changes in this revision.
+
 ## Lists from pull 3 (gleif-400-pull3.csv)
 
 ### Found-by tally
@@ -148,9 +150,10 @@ NO-LEI REGISTRANTS — names each search returned (verbatim):
   0000717826 | legalName="ERICSSON LM TELEPHONE Company" (total 0) -> []
   0000717826 | legalName="ERICSSON LM TELEPHONE" (total 0) -> []
   0000717826 | fuzzy q="ERICSSON" (total n/a) -> ["Ericsson AB", "ERICSSON AG", "ERICSSON AS", "Erickson B.V.", "ERICSSON GMBH", "Ericsson Inc.", "ERICSON, KJELL", "Eriksson Fur Ab", "ERICSSON LIMITED", "Ericsson Limited"]
-0001469059 | SEC name: Capitec Limited/ADR | SEC lei: (none) | reverted to none: ladder matched "CAPITEC PTY LTD" (AU), a different entity from the registrant Capitec Bank Holdings Ltd (South Africa) — same judgment as pull 1 rev2; no name-equal GLEIF record exists ("Capitec Bank Holdings Limited" -> 0 results; "Capitec Limited" -> only "Capitec Bank Limited", a subsidiary)
+0001469059 | SEC name: Capitec Limited/ADR | SEC lei: (none) | reverted to none: ladder matched "CAPITEC PTY LTD" (AU), a different entity from the registrant Capitec Bank Holdings Ltd (South Africa) — same judgment as pull 1 rev2; no name-equal GLEIF record exists ("Capitec Bank Holdings Limited" -> 0 results; "Capitec Limited" -> only "Capitec Bank Limited", a subsidiary); revision 1 (2026-11-20): fuzzycompletions q="Capitec" returned 10 suggestions, none name-equal to "Capitec Limited", so found by stays none
   0001469059 | legalName="Capitec Limited" (total 1) -> ["Capitec Bank Limited"]
   0001469059 | legalName="Capitec" (total 2) -> ["CAPITEC PTY LTD", "Capitec Bank Limited"]
+  0001469059 | fuzzy q="Capitec" (total n/a) -> ["Capitel Oy", "CAPTECH AB", "CAITEC INC.", "Campitec Oy", "Capitena AB", "CAPITEX LTD", "CAPITELLE AS", "CAVITEC S.L.", "CAPITEL C LTD", "CAPITELLE LTD"]
 0001447391 | SEC name: RESONA HOLDINGS INC | SEC lei: (none)
   0001447391 | legalName="RESONA HOLDINGS INC" (total 0) -> []
   0001447391 | legalName="RESONA HOLDINGS Incorporated" (total 0) -> []
